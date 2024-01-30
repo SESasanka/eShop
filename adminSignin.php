@@ -44,7 +44,7 @@
                                 <input type="email" class="form-control" placeholder="ex : john@gmail.com" id="e" />
                             </div>
                             <div class="col-12 col-lg-6 d-grid">
-                                <button class="btn btn-primary">Send Verification Code</button>
+                                <button class="btn btn-primary" onclick="adminVerification();">Send Verification Code</button>
                             </div>
                             <div class="col-12 col-lg-6 d-grid">
                                 <button class="btn btn-danger">Back to Customer Log In</button>
@@ -56,7 +56,7 @@
 
             <!--  -->
 
-            <div class="modal" tabindex="-1">
+            <div class="modal" tabindex="-1" id="verificationModel">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Verify</button>
+                            <button type="button" class="btn btn-primary" onclick="verify();">Verify</button>
                         </div>
                     </div>
                 </div>
