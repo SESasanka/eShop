@@ -176,6 +176,9 @@ include "connection.php";
                             <div class="col-12 col-lg-6 d-grid">
                                 <button class="btn btn-danger" onclick="changeView();">New to eShop? Join Now</button>
                             </div>
+                            <div class="col-12 d-grid">
+                                <a href="adminSignin.php" class="btn btn-success"> Go to Admin Login</a>
+                            </div>
                         </div>
                     </div>
 
