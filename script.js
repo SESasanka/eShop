@@ -1024,3 +1024,28 @@ function verify(){
     request.send(form);
 
 }
+
+function blockUser(email){
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function (){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            alert (response);
+            window.location.reload();
+        }
+    }
+
+    request.open("GET","userBlockProcess.php?email="+email,true);
+    request.send();
+
+}
+
+var mm;
+
+function viewMsgModal(email){
+    var m = document.getElementById("userMsgModal"+email);
+    mm = new bootstrap.Modal(m);
+    mm.show();
+}
