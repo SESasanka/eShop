@@ -40,7 +40,7 @@ if (isset($_SESSION["au"])) {
                                     <nav class="nav flex-column">
                                         <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
                                         <a class="nav-link" href="manageUsers.php">Manage Users</a>
-                                        <a class="nav-link" href="manageProduct.php">Manage Products</a>
+                                        <a class="nav-link" href="manageProducts.php">Manage Products</a>
                                     </nav>
                                 </div>
                                 <div class="col-12 mt-5">

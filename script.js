@@ -1049,3 +1049,99 @@ function viewMsgModal(email){
     mm = new bootstrap.Modal(m);
     mm.show();
 }
+
+function blockProduct(id){
+    
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function(){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            alert(response);
+            window.location.reload();
+        }
+    }
+
+    request.open("GET","productBlockProcess.php?id="+id,true);
+    request.send();
+
+}
+
+var pm;
+
+function viewProductModal(id){
+    var m = document.getElementById("viewProductModal"+id);
+    pm = new bootstrap.Modal(m);
+    pm.show();
+}
+
+var cm;
+
+function addNewCategory(){
+    var m = document.getElementById("addCategoryModal");
+    cm = new bootstrap.Modal(m);
+    cm.show();
+
+}
+
+var vc;
+var e;
+var n;
+
+function verifyCategory(){
+
+    var ncm = document.getElementById("addCategoryVerificationModal");
+    var vc = new bootstrap.Modal(ncm);
+
+    e = document.getElementById("e").value;
+    n = document.getElementById("n").value;
+
+    var form = new FormData();
+    form.append("email",e);
+    form.append("name",n);
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function (){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            if(response == "Success"){
+                cm.hide();
+                vc.show();
+            }else{
+                alert(response);
+            }
+            
+        }
+    }
+
+    request.open("POST","addNewCategoryPrcess.php",true);
+    request.send(form);
+
+}
+
+function saveCategory(){
+    var txt = document.getElementById("txt").value;
+
+    var form = new FormData();
+    form.append("t",txt);
+    form.append("e",e);
+    form.append("n",n);
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function (){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            if(response == "success"){
+                window.location.reload();
+                vc.hide();
+            }
+            alert(response);
+        }
+    }
+
+    request.open("POST","saveCategoryProcess.php",true);
+    request.send(form);
+
+}
