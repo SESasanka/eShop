@@ -1145,3 +1145,51 @@ function saveCategory(){
     request.send(form);
 
 }
+
+function sendAdminMsg(email){
+    var txt = document.getElementById("msgtxt");
+
+    var form = new FormData();
+    form.append("t",txt.value);
+    form.append("e",email.value);
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function (){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            alert (response);
+        }
+    }
+
+    request.open("POST","sendAdminMsgProcess.php",true);
+    request.send(form);
+    
+}
+
+var cam;
+function contactAdmin(){
+    var m = document.getElementById("contactAdmin");
+    cam = new bootstrap.Modal(m);
+    cam.show();
+}
+
+function sendAdminMsg(){
+    var txt = document.getElementById("msgtxt");
+
+    var form = new FormData();
+    form.append("t",txt.value);
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function (){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            alert (response);
+        }
+    }
+
+    request.open("POST","sendAdminMsgProcess.php",true);
+    request.send(form);
+    
+}

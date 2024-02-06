@@ -62,7 +62,7 @@
                             <li><a class="dropdown-item" href="watchlist.php">Watchlist</a></li>
                             <li><a class="dropdown-item" href="purchasingHistory.php">Purchase History</a></li>
                             <li><a class="dropdown-item" href="messages.php">Messages</a></li>
-                            <li><a class="dropdown-item" href="#">Contact Admin</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="contactAdmin();">Contact Admin</a></li>
                         </ul>
                     </div>
 
@@ -117,7 +117,7 @@
                                                 <input type="text" class="form-control" id="msgtxt" />
                                             </div>
                                             <div class="col-3 d-grid">
-                                                <button type="button" class="btn btn-primary">Send</button>
+                                                <button type="button" class="btn btn-primary" onclick="sendAdminMsg();">Send</button>
                                             </div>
                                         </div>
                                     </div>

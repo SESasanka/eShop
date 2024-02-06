@@ -1,6 +1,6 @@
 <?php
 
-require "connection.php";
+include "connection.php";
 
 ?>
 
@@ -165,7 +165,7 @@ require "connection.php";
                                 <h5 class="modal-title"><?php echo $selected_data["fname"] . " " . $selected_data["lname"]; ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body overflow-scroll">
+                            <div class="modal-body overflow-scroll" id="chat_box">
                                 <!-- received -->
                                 <div class="col-12 mt-2">
                                     <div class="row">
@@ -208,7 +208,7 @@ require "connection.php";
                                             <input type="text" class="form-control" id="msgtxt" />
                                         </div>
                                         <div class="col-3 d-grid">
-                                            <button type="button" class="btn btn-primary">Send</button>
+                                            <button type="button" class="btn btn-primary" onclick="sendAdminMsg('<?php echo $selected_data['email']; ?>');">Send</button>
                                         </div>
                                     </div>
                                 </div>
