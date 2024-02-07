@@ -1193,3 +1193,59 @@ function sendAdminMsg(){
     request.send(form);
     
 }
+
+function searchInvoice(){
+    var txt = document.getElementById("searchtxt").value;
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function (){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            document.getElementById("viewArea").innerHTML=response;
+        }
+    }
+
+    request.open("GET","searchInvoiceProcess.php?id="+txt,true);
+    request.send();
+}
+
+function findsellings(){
+
+    var from = document.getElementById("from").value;
+    var to = document.getElementById("to").value;
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function (){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            document.getElementById("viewArea").innerHTML=response;
+        }
+    }
+
+    request.open("GET","findSellingsProcess.php?f="+from+"&t="+to,true);
+    request.send();
+
+}
+
+function changeInvoiceStatus(id){
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function (){
+        if(request.status == 200 & request.readyState == 4){
+            var response = request.responseText;
+            if(response == "success"){
+                window.location.reload();
+            }else{
+                alert(response);
+            }
+           
+        }
+    }
+
+    request.open("GET","changeInvoiceStatusProcess.php?id="+id,true);
+    request.send();
+
+}

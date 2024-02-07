@@ -1,3 +1,9 @@
+<?php
+
+include "connection.php";
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -27,19 +33,19 @@
                 <div class="row">
                     <div class="col-12 col-lg-3 mt-3 mb-3">
                         <label class="form-label fs-5">Search by Invoice ID : </label>
-                        <input type="text" class="form-control fs-5"/>
+                        <input type="text" class="form-control fs-5" id="searchtxt" onkeyup="searchInvoice();"/>
                     </div>
                     <div class="col-12 col-lg-2 mt-3 mb-3"></div>
                     <div class="col-12 col-lg-3 mt-3 mb-3">
                         <label class="form-label fs-5">From Date : </label>
-                        <input type="date" class="form-control fs-5"/>
+                        <input type="date" class="form-control fs-5" id="from" />
                     </div>
                     <div class="col-12 col-lg-3 mt-3 mb-3">
                         <label class="form-label fs-5">To Date : </label>
-                        <input type="date" class="form-control fs-5"/>
+                        <input type="date" class="form-control fs-5" id="to"/>
                     </div>
                     <div class="col-12 col-lg-1 mt-3 mb-3 d-grid">
-                        <button class="btn btn-primary fs-5 fw-bold">Find</button>
+                        <button class="btn btn-primary fs-5 fw-bold" onclick="findsellings();">Find</button>
                     </div>
                 </div>
             </div>
@@ -67,48 +73,146 @@
                 </div>
             </div>
 
-            <div class="col-12 mt-2">
-                
+            <div class="col-12 mt-2" id="viewArea">
+
+                <?php
+                $query = "SELECT * FROM `invoice`";
+                $pageno;
+
+                if (isset($_GET["page"])) {
+                    $pageno = $_GET["page"];
+                } else {
+                    $pageno = 1;
+                }
+
+                $invoice_rs = Database::search($query);
+                $invoice_num = $invoice_rs->num_rows;
+
+                $results_per_page = 20;
+                $number_of_pages = ceil($invoice_num / $results_per_page);
+
+                $page_results = ($pageno - 1) * $results_per_page; // 0 , 20 , 40
+                $selected_rs = Database::search($query . " LIMIT " . $results_per_page . " OFFSET " . $page_results . "");
+
+                $selected_num = $selected_rs->num_rows;
+
+                for ($x = 0; $x < $selected_num; $x++) {
+                    $selected_data = $selected_rs->fetch_assoc();
+
+                ?>
                     <div class="row">
 
                         <div class="col-1 bg-secondary text-end">
-                            <label class="form-label fs-5 fw-bold text-white mt-1 mb-1">01</label>
+                            <label class="form-label fs-5 fw-bold text-white mt-1 mb-1"><?php echo $selected_data["invoice_id"]; ?></label>
                         </div>
+
+                        <?php
+
+                        $product_rs = Database::search("SELECT * FROM `product` WHERE `id`='" . $selected_data["product_id"] . "'");
+                        $product_data = $product_rs->fetch_assoc();
+
+                        ?>
+
                         <div class="col-3 bg-body text-end">
-                            <label class="form-label fs-5 fw-bold text-black mt-1 mb-1">Apple iPhone 12</label>
+                            <label class="form-label fs-5 fw-bold text-black mt-1 mb-1"><?php echo $product_data["title"]; ?></label>
                         </div>
+
+                        <?php
+                        $user_rs = Database::search("SELECT * FROM `user` WHERE `email`='" . $selected_data["user_email"] . "'");
+                        $user_data = $user_rs->fetch_assoc();
+                        ?>
+
                         <div class="col-3 bg-secondary text-end">
-                            <label class="form-label fs-5 fw-bold text-white mt-1 mb-1">Sahan Perera</label>
+                            <label class="form-label fs-5 fw-bold text-white mt-1 mb-1"><?php echo $user_data["fname"] . " " . $user_data["lname"]; ?></label>
                         </div>
                         <div class="col-2 bg-body text-end">
-                            <label class="form-label fs-5 fw-bold text-black mt-1 mb-1">Rs. 100000 .00</label>
+                            <label class="form-label fs-5 fw-bold text-black mt-1 mb-1">Rs. <?php echo $selected_data["total"]; ?> .00</label>
                         </div>
                         <div class="col-1 bg-secondary text-end">
-                            <label class="form-label fs-5 fw-bold text-white mt-1 mb-1">1</label>
+                            <label class="form-label fs-5 fw-bold text-white mt-1 mb-1"><?php echo $selected_data["qty"]; ?></label>
                         </div>
                         <div class="col-2 bg-white d-grid">
-                                <button class="btn btn-success fw-bold mt-1 mb-1">Confirm Order</button>
+                            <?php
+                            if ($selected_data["status"] == 0) {
+                                //order comform 
+                            ?>
+                                <button class="btn btn-success fw-bold mt-1 mb-1" id="btn<?php echo $selected_data["invoice_id"]; ?>"
+                                onclick="changeInvoiceStatus('<?php echo $selected_data['invoice_id']; ?>');">Confirm Order</button>
+                            <?php
+                            } else if ($selected_data["status"] == 1) {
+                            ?>
+                                <button class="btn btn-warning fw-bold mt-1 mb-1" id="btn<?php echo $selected_data["invoice_id"]; ?>"
+                                onclick="changeInvoiceStatus('<?php echo $selected_data['invoice_id']; ?>');">Packing</button>
+                            <?php
+                            } else if ($selected_data["status"] == 2) {
+                            ?>
+                                <button class="btn btn-info fw-bold mt-1 mb-1" id="btn<?php echo $selected_data["invoice_id"]; ?>"
+                                onclick="changeInvoiceStatus('<?php echo $selected_data['invoice_id']; ?>');">Dispatch</button>
+                            <?php
+                            } else if ($selected_data["status"] == 3) {
+                            ?>
+                                <button class="btn btn-primary fw-bold mt-1 mb-1" id="btn<?php echo $selected_data["invoice_id"]; ?>"
+                                onclick="changeInvoiceStatus('<?php echo $selected_data['invoice_id']; ?>');">Shipping</button>
+                            <?php
+                            } else if ($selected_data["status"] == 4) {
+                            ?>
+                                <button class="btn btn-danger fw-bold mt-1 mb-1" id="btn<?php echo $selected_data["invoice_id"]; ?>"
+                                onclick="changeInvoiceStatus('<?php echo $selected_data['invoice_id']; ?>');">Delivery</button>
+                            <?php
+                            }
+                            ?>
+
                         </div>
 
                     </div>
-                
+                <?php
+
+                }
+                ?>
+
+
+
                 <!--  -->
-                <div class="offset-2 offset-lg-3 col-8 col-lg-6 text-center mb-3 mt-3">
+                <div class="offset-2 offset-lg-3 col-8 col-lg-6 text-center mb-3">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination pagination-lg justify-content-center">
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                                <a class="page-link" href="
+                            <?php if ($pageno <= 1) {
+                                echo ("#");
+                            } else {
+                                echo "?page=" . ($pageno - 1);
+                            } ?>
+                            " aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
+                            <?php
+                            for ($x = 1; $x <= $number_of_pages; $x++) {
+                                if ($x == $pageno) {
+                            ?>
                                     <li class="page-item active">
-                                        <a class="page-link" href="#">1</a>
+                                        <a class="page-link" href="<?php echo "?page=" . ($x); ?>"><?php echo $x; ?></a>
                                     </li>
+                                <?php
+                                } else {
+                                ?>
                                     <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
+                                        <a class="page-link" href="<?php echo "?page=" . ($x); ?>"><?php echo $x; ?></a>
                                     </li>
+                            <?php
+                                }
+                            }
+                            ?>
+
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                                <a class="page-link" href="
+                            <?php if ($pageno >= $number_of_pages) {
+                                echo ("#");
+                            } else {
+                                echo "?page=" . ($pageno + 1);
+                            } ?>
+                            " aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
