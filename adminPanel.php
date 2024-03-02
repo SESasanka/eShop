@@ -50,10 +50,10 @@ if (isset($_SESSION["au"])) {
                                 </div>
                                 <div class="col-12 mt-3 d-grid">
                                     <label class="form-label fs-6 fw-bold text-white">From Date</label>
-                                    <input type="date" class="form-control" />
+                                    <input type="date" class="form-control" id="from"/>
                                     <label class="form-label fs-6 fw-bold text-white mt-2">To Date</label>
-                                    <input type="date" class="form-control" />
-                                    <a href="#" class="btn btn-primary mt-2">Search</a>
+                                    <input type="date" class="form-control" id="to"/>
+                                    <a href="sellingHistory.php" class="btn btn-primary mt-2">Search</a>
                                     <hr class="border border-1 border-white" />
                                     <label class="form-label fs-6 fw-bold text-white">Daily Sellings</label>
                                     <hr class="border border-1 border-white" />

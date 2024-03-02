@@ -1146,7 +1146,7 @@ function saveCategory(){
 
 }
 
-function sendAdminMsg(email){
+function sendAdminMsg(){
     var txt = document.getElementById("msgtxt");
 
     var form = new FormData();
@@ -1167,32 +1167,33 @@ function sendAdminMsg(email){
     
 }
 
-var cam;
-function contactAdmin(){
-    var m = document.getElementById("contactAdmin");
-    cam = new bootstrap.Modal(m);
-    cam.show();
-}
+// var cam;
+// function contactAdmin(){
+//     var m = document.getElementById("contactAdmin");
+//     cam = new bootstrap.Modal(m);
+//     cam.show();
+// }
 
-function sendAdminMsg(){
-    var txt = document.getElementById("msgtxt");
+// function sendAdminMsg(){
+//     var txt = document.getElementById("msgtxt").value;
 
-    var form = new FormData();
-    form.append("t",txt.value);
+//     var form = new FormData();
+//     form.append("t",txt);
 
-    var request = new XMLHttpRequest();
 
-    request.onreadystatechange = function (){
-        if(request.status == 200 & request.readyState == 4){
-            var response = request.responseText;
-            alert (response);
-        }
-    }
+//     var request = new XMLHttpRequest();
 
-    request.open("POST","sendAdminMsgProcess.php",true);
-    request.send(form);
+//     request.onreadystatechange = function (){
+//         if(request.status == 200 & request.readyState == 4){
+//             var response = request.responseText;
+//             alert (response);
+//         }
+//     }
+
+//     request.open("POST","sendAdminMsgProcess.php",true);
+//     request.send(form);
     
-}
+// }
 
 function searchInvoice(){
     var txt = document.getElementById("searchtxt").value;
