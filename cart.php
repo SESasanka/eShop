@@ -124,13 +124,13 @@
                                         $ship = 0;
 
                                         
-                                        if (($address_data["did"] == 1)) {
+                                        // if (($address_data["did"] == 1)) {
                                             $ship = $product_data["delivery_fee_colombo"];
                                             $shipping = $shipping + $ship;
-                                        } else {
+                                        // } else {
                                             $ship = $product_data["delivery_fee_other"];
                                             $shipping = $shipping + $ship;
-                                        }
+                                        // }
 
 
                                         $seller_rs = Database::search("SELECT * FROM `user` WHERE `email`='" . $product_data["user_email"] . "'");
