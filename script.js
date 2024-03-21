@@ -958,7 +958,9 @@ function viewMessage(email) {
     request.onreadystatechange = function () {
         if (request.status == 200 & request.readyState == 4) {
             var response = request.responseText;
+            
             document.getElementById("chat_box").innerHTML=response;
+            reload();
             // alert (response);
         }
     }
