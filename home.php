@@ -149,7 +149,7 @@ include "connection.php";
                                         <?php
 
                                         $product_rs = Database::search("SELECT * FROM `product` WHERE `category_cat_id`='" . $category_data2["cat_id"] . "' 
-                                        AND `status_status_id`='1' ORDER BY `datetime_added` DESC LIMIT 4 OFFSET 0");
+                                        AND `status_status_id`='1' ORDER BY `datetime_added` DESC LIMIT 10 OFFSET 0");
 
                                         $product_num = $product_rs->num_rows;
 
