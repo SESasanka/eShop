@@ -1,0 +1,112 @@
+# PHP Project Specific
+*.php
+!*.php.example
+
+# Composer
+composer.lock
+vendor/
+
+# Configuration Files (sensitive data)
+config.php
+connection.php
+database.php
+settings.php
+.env
+.env.local
+.env.*.local
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Log Files
+*.log
+logs/
+*.txt
+
+# Session & Cache
+session/
+cache/
+*.cache
+.cache
+
+# Dynamic Content & Uploads
+resource/profile_images/*
+resource/slider_images/*
+resource/mobile_images/*
+resource/payment_method/*
+!resource/profile_images/.gitkeep
+!resource/slider_images/.gitkeep
+!resource/mobile_images/.gitkeep
+!resource/payment_method/.gitkeep
+
+# Database Files
+*.sql
+db.sqlite
+*.db
+*.sqlite
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# Build & Deployment
+dist/
+build/
+node_modules/
+
+# OS Files
+.DS_Store
+Thumbs.db
+.Vagrant
+*.pem
+*.key
+
+# Testing
+tests/coverage/
+phpunit.xml
+
+# NPM (if using Node.js packages)
+package-lock.json
+node_modules/
+
+# Mail Server Configuration
+mail_config.php
+
+# OAuth & API Keys
+oauth_tokens.php
+api_keys.php
+
+# Backup Files
+*.bak
+*.backup
+*.orig
+
+# Archive Files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Development Tools
+*.sublime-workspace
+.phpstorm.meta.php
+_ide_helper.php
+
+# VS Code Extensions
+*.vsix
+
+# Custom application specific
+admin_session/
+user_session/
+payment_gateway_logs/
